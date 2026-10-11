@@ -1,0 +1,116 @@
+# Configuración del README de Galaxy Profile
+# Este archivo es la única fuente de verdad de todo el perfil: las cuatro SVGs
+# de la galaxia Y el calendario 3D de contribuciones (la GitHub Action lee
+# conf/github-profile-3d-contrib.json, escrito desde aquí por
+# tools/theme_to_3d_settings.py).
+#
+# Uso:
+#   python -m generator.main          # usa este config.yml y datos reales de GitHub
+#   python tools/theme_to_3d_settings.py   # escribe conf/github-profile-3d-contrib.json
+
+# Tu nombre de usuario de GitHub (obligatorio)
+username: gael1726
+
+# Información del perfil. name, tagline y philosophy se dibujan en la cabecera
+# de la galaxia; company, location y bio no se dibujan: se guardan aquí como
+# referencia. philosophy queda vacío a propósito (no se dibuja nada).
+profile:
+  name: "Juraz Gael Miranda Coronado"
+  tagline: "Estudiante de Sistemas · Software con IA"
+  location: "Universidad de Sonora · Hermosillo, Sonora, México"
+  bio: |
+    Desarrollo aplicaciones en Java con bases de datos y sockets, y me gusta
+    entender lo que cada cliente necesita antes de escribir la primera línea
+    de código.
+  philosophy: ""
+
+# Enlaces sociales. Solo GitHub y el portafolio son públicos. No se dibujan en
+# las imágenes: los enlaces viven en el README (ver README.profile.md).
+social:
+  website: "https://gael1726.github.io/"
+
+# Los brazos de la galaxia son tus áreas de enfoque. Un brazo por área. Los
+# elementos que no son lenguajes (Swing, Docker...) igual aparecen en la imagen
+# del stack tecnológico.
+galaxy_arms:
+  - name: "Software de escritorio"
+    items:
+      - "Java"
+      - "Swing"
+      - "NetBeans"
+      - "IntelliJ IDEA"
+      - "C#"
+  - name: "Datos y servidores"
+    items:
+      - "SQLite"
+      - "MySQL"
+      - "PostgreSQL"
+      - "SQL Server"
+      - "Docker"
+      - "Ubuntu Server"
+      - "Python"
+  - name: "Hardware y diseño"
+    items:
+      - "Arduino"
+      - "Figma"
+      - "sockets TCP"
+      - "AES-256"
+
+# Proyectos destacados, dibujados como la constelación y nombrados en la galaxia.
+# arm: 0, 1 o 2 — índice del área de enfoque de arriba que posee la estrella.
+projects:
+  - repo: "gael1726/cliente-monitor-arduino"
+    description: "Monitor en tiempo real de un sensor de 3 ejes con Arduino: Java, sockets, AES-256 y SQLite."
+    arm: 2
+  - repo: "gael1726/gestor-productos-java"
+    description: "Gestor de productos con interfaz Swing y persistencia en archivos."
+    arm: 0
+  - repo: "gael1726/cliente-servidor-eco-java"
+    description: "Servidor de eco multicliente con sockets TCP y pool de 10 hilos."
+    arm: 0
+  - repo: "gael1726/inventario-sqlite-java"
+    description: "Gestor de inventario con SQLite y JDBC con consultas parametrizadas."
+    arm: 1
+
+# Tema. Paleta nocturna deep-sky para el tema oscuro de GitHub y papel deep-sky
+# para el tema claro. Estos colores en hexadecimal ajustan SOLO la paleta
+# oscura (la paleta clara es el modo de lectura "papel" fijo de deep-sky).
+#
+# NOTA sobre los valores de abajo: un color exactamente igual al default de la
+# versión 1 de la herramienta se ignora. Los colores usan valores un poco
+# distintos de esos defaults (synapse #00d9ff, dendrite #a586ff, axon #ffb339)
+# para que los acentos cian / violeta / ámbar sí se apliquen.
+theme:
+  dark: "deep-sky"
+  light: "deep-sky"
+  void: "#070b15"            # Fondo — espacio profundo
+  text_bright: "#f5f7fb"     # Texto principal
+  text_dim: "#9aa8c0"        # Texto secundario
+  text_faint: "#5a6780"      # Líneas finas
+  synapse_cyan: "#00d9ff"    # Estrellas activas + calendario de contribuciones
+  dendrite_violet: "#a586ff" # Radar + segundo color de polvo
+  axon_amber: "#ffb339"      # Estrellas inactivas + contadores del titular
+
+# Movimiento: true conserva las entradas sutiles. Quien pida a su sistema
+# movimiento reducido siempre recibe imágenes fijas.
+motion: true
+
+# Telemetría de la misión: contadores junto al gráfico de contribuciones (el
+# propio título del gráfico es el número de contribuciones; hasta tres de los
+# demás se muestran).
+stats:
+  metrics:
+    - "commits"
+    - "stars"
+    - "prs"
+    - "issues"
+    - "repos"
+
+# Ajustes de visualización de lenguajes
+languages:
+  exclude:
+    - "HTML"
+    - "CSS"
+    - "Shell"
+    - "Makefile"
+  max_display: 8

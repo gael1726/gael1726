@@ -1,0 +1,58 @@
+name: Generar recursos del perfil
+
+on:
+  # Cada 12 horas, y también a mano desde la pestaña Actions.
+  schedule:
+    - cron: "0 */12 * * *"
+  workflow_dispatch:
+  # O al subir cambios que afecten a los recursos o a su generación.
+  push:
+    paths:
+      - "config.yml"
+      - "generator/**"
+      - "tools/**"
+      - ".github/workflows/**"
+
+jobs:
+  generate:
+    name: Generar las SVGs de la galaxia y el calendario 3D de contribuciones
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Generar las SVGs de la galaxia
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: python -m generator.main
+
+      - name: Escribir los ajustes del 3D desde config.yml
+        run: python tools/theme_to_3d_settings.py config.yml conf/github-profile-3d-contrib.json
+
+      - name: Generar el calendario 3D de contribuciones
+        # Versión fija y estable (revisa las releases para actualizarla).
+        uses: yoshi389111/github-profile-3d-contrib@v0.9.3
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          USERNAME: ${{ github.repository_owner }}
+          SETTING_JSON: conf/github-profile-3d-contrib.json
+
+      - name: Guardar y subir si hay cambios
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/generated/ profile-3d-contrib/
+          if ! git diff --staged --quiet; then
+            git commit -m "chore: actualizar recursos del perfil [skip ci]"
+            git push
+          fi
